@@ -39,17 +39,24 @@ namespace PICOCompiler
             }
         }
 
-        private void _onOpenErrorList(object sender, EventArgs e)
+       private void _onOpenErrorList(object sender, EventArgs e)
         {
             ErrorForm form = new ErrorForm();
-            //...
-            _listErrors(form);
+
+            if (PICOCompiler.PICOParser.GetErrorList.Count > 0)
+            {
+                _listErrors(form);
+            }
             form.Show();
         }
 
         private void _listErrors(ErrorForm a)
         {
-            //...
+            foreach(Symbol tokenFail in PICOCompiler.PICOParser.GetErrorList)
+            {
+                System.Windows.Forms.ListViewItem lis = new System.Windows.Forms.ListViewItem(tokenFail.apresentarErros());
+                a.listView3.Items.Add(lis);
+            }
         }
 
         private void _analyzeFile()
